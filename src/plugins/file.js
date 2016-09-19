@@ -266,12 +266,8 @@ angular.module('ngCordova.plugins.file', [])
             $window.resolveLocalFileSystemURL(path, function (fileSystem) {
               fileSystem.getFile(fileName, options, function (fileEntry) {
                 fileEntry.createWriter(function (writer) {
-                  if (options.append === true) {
-                    writer.seek(writer.length);
-                  }
-
-                  if (options.truncate) {
-                    writer.truncate(options.truncate);
+                  if (options.exclusive) {
+                    writer.truncate(0);
                   }
 
                   writer.onwriteend = function (evt) {
